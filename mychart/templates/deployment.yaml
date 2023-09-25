@@ -32,8 +32,9 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          command: [ "/bin/sh", "-c", "ls /etc/config/" ]
           volumeMounts:
-            - name: env-volume
+            - name: config-volume
               mountPath: /etc/config
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
@@ -57,9 +58,9 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-        - name: env-volume
+        - name: config-volume
           configMap:
-            name: cfgmap
+            name: special-config
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
