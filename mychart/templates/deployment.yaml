@@ -42,14 +42,14 @@ spec:
               path: /live
               port: 8080
             timeoutSeconds: 5
-            initialDelaySeconds: 60
+            initialDelaySeconds: 65
             periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /ready
               port: 8080
             timeoutSeconds: 5
-            initialDelaySeconds: 60
+            initialDelaySeconds: 65
             periodSeconds: 10
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
